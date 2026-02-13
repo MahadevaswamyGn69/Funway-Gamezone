@@ -24,7 +24,8 @@ const password = document.getElementById("password").value.trim();
 
 
   try {
-    const res = await fetch("http://localhost:5000/api/login", {
+    // Use relative URL so it works on localhost and Render
+    const res = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password })

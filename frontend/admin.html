@@ -237,9 +237,10 @@
     bookingSearch.addEventListener("input", applySearchFilter);
 
     try {
+      // Use relative URLs so it works both on localhost and on Render
       const [bookingsRes, todayRes] = await Promise.all([
-        fetch("http://localhost:5000/api/bookings"),
-        fetch("http://localhost:5000/api/bookings/today/sales")
+        fetch("/api/bookings"),
+        fetch("/api/bookings/today/sales")
       ]);
 
       allBookings = await bookingsRes.json();
