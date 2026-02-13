@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GameZone | Games</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ===== HEADER / NAVBAR ===== -->
+<header>
+  <nav class="navbar">
+    <div class="nav-left">
+    <div class="logo"><a class="brand" href="home.html">GameZone</a></div>
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="gameSearch"
+          name="search"
+          placeholder="Search games..."
+        >
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="about.html">About us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main>
+
+  <h1 class="page-title">Available Games</h1>
+
+  <!-- GAMES GRID (4 PER ROW via CSS later) -->
+  <section class="games-grid">
+
+    <!-- GAME 1 -->
+    <article class="game-card" data-game-id="1">
+      <div class="game-img">
+        <img src="go-karting.webp" alt="Go Karting race">
+      </div>
+
+      <h3 class="game-name">Go Karting</h3>
+
+      <p class="game-desc">
+        High-speed racing experience with friends and family.
+      </p>
+
+      <div class="game-meta">
+        <span class="game-price">₹200 / person</span>
+        <span class="game-rating">⭐⭐⭐⭐☆</span>
+      </div>
+
+      <a href="book.html?game=Go%20Karting" class="game-btn">Book Now</a>
+
+    </article>
+
+    <!-- GAME 2 -->
+    <article class="game-card" data-game-id="2">
+      <div class="game-img">
+        <img src="bowling.jpg" alt="Bowling alley">
+      </div>
+
+      <h3 class="game-name">Bowling</h3>
+
+      <p class="game-desc">
+        Fun indoor bowling lanes for all age groups.
+      </p>
+
+      <div class="game-meta">
+        <span class="game-price">₹180 / game</span>
+        <span class="game-rating">⭐⭐⭐⭐⭐</span>
+      </div>
+
+      <a href="book.html?game=Bowling" class="game-btn">Book Now</a>
+
+    </article>
+
+    <!-- GAME 3 -->
+    <article class="game-card" data-game-id="3">
+      <div class="game-img">
+        <img src="laser tag.webp" alt="Laser tag battle">
+      </div>
+
+      <h3 class="game-name">Laser Tag</h3>
+
+      <p class="game-desc">
+        Action-packed laser combat in a dark arena.
+      </p>
+
+      <div class="game-meta">
+        <span class="game-price">₹300 / person</span>
+        <span class="game-rating">⭐⭐⭐⭐☆</span>
+      </div>
+
+      <a href="book.html?game=Laser%20Tag" class="game-btn">Book Now</a>
+    </article>
+
+    <!-- GAME 4 -->
+    <article class="game-card" data-game-id="4">
+      <div class="game-img">
+        <img src="video game.jpg" alt="VR gaming experience">
+      </div>
+
+      <h3 class="game-name">VR Games</h3>
+
+      <p class="game-desc">
+        Immersive virtual reality gaming experience.
+      </p>
+
+      <div class="game-meta">
+        <span class="game-price">₹120 / session</span>
+        <span class="game-rating">⭐⭐⭐⭐⭐</span>
+      </div>
+
+      <a href="book.html?game=VR%20Games" class="game-btn">Book Now</a>
+    </article>
+ 
+    
+   <!-- GAME 5 -->
+    <article class="game-card" data-game-id="1">
+  <div class="game-img">
+    <img src="bull-ride.jpg" alt="Thrilling ride">
+  </div>
+
+  <h3 class="game-name">Bull Ride</h3>
+
+  <p class="game-desc">
+    Survive a thrilling bull riding experience.
+  </p>
+
+  <div class="game-meta">
+    <span class="game-price">₹100 / person</span>
+    <span class="game-rating">⭐⭐⭐⭐☆</span>
+  </div>
+
+  <a href="book.html?game=Bull%20Ride" class="game-btn">Book Now</a>
+</article>
+
+    <!-- GAME 6 -->
+<article class="game-card" data-game-id="2">
+  <div class="game-img">
+    <img src="snoker.jpg" alt="Indoor game zone">
+  </div>
+
+  <h3 class="game-name">Snoker</h3>
+
+  <p class="game-desc">
+    Professional drift-style racing on indoor tracks.
+  </p>
+
+  <div class="game-meta">
+    <span class="game-price">₹150 / race</span>
+    <span class="game-rating">⭐⭐⭐⭐⭐</span>
+  </div>
+
+  <a href="book.html?game=Snoker" class="game-btn">Book Now</a>
+</article>
+
+  <!-- GAME 7 -->
+<article class="game-card" data-game-id="3">
+  <div class="game-img">
+    <img src="paint ball.jpg" alt="Team battle arena">
+  </div>
+
+  <h3 class="game-name">Paint Ball</h3>
+
+  <p class="game-desc">
+    Competitive team battles using smart laser weapons.
+  </p>
+
+  <div class="game-meta">
+    <span class="game-price">₹80 / person</span>
+    <span class="game-rating">⭐⭐⭐⭐☆</span>
+  </div>
+
+  <a href="book.html?game=Paint%20Ball" class="game-btn">Book Now</a>
+</article>
+
+<!-- GAME 8 -->
+<article class="game-card" data-game-id="4">
+  <div class="game-img">
+    <img src="archery.jpg" alt="VR space ride">
+  </div>
++
+  <h3 class="game-name">Archery</h3>
+
+  <p class="game-desc">
+    Experience space travel with motion-based VR seats.
+  </p>
+
+  <div class="game-meta">
+    <span class="game-price">₹150 / session</span>
+    <span class="game-rating">⭐⭐⭐⭐⭐</span>
+  </div>
+
+  <a href="book.html?game=Archery" class="game-btn">Book Now</a>
+</article>
+
+  </section>
+
+</main>
+
+<!-- GAME DETAILS PANEL (GLASS OVERLAY WHEN USER CLICKS A GAME IMAGE) -->
+<section id="game-details" class="game-details-overlay" style="display: none;">
+  <div class="game-details-card">
+    <button id="closeDetails" class="game-details-close" aria-label="Close details">×</button>
+    <h2 id="detailTitle" class="game-details-title"></h2>
+    <p id="detailText" class="game-details-text"></p>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-section">
+      <h3>GameZone</h3>
+      <p>Fun, Games & Entertainment for everyone.</p>
+    </div>
+
+    <div class="footer-section quick-links-div">
+      <h4>Quick Links</h4>
+      <ul class="quick-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="book.html">Book</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <p>Funway Mysore</p>
+      <p>Email: info@gamezone.com</p>
+      <p>Phone: +91 98765 43210</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 GameZone. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+  // Simple client-side filtering of game cards + game details panel
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("gameSearch");
+    const cards = Array.from(document.querySelectorAll(".game-card"));
+    const detailsSection = document.getElementById("game-details");
+    const detailTitle = document.getElementById("detailTitle");
+    const detailText = document.getElementById("detailText");
+    const closeDetailsBtn = document.getElementById("closeDetails");
+
+    if (!searchInput || cards.length === 0) return;
+
+    const noResultsId = "noResultsMessage";
+
+    function getOrCreateNoResultsElement() {
+      let el = document.getElementById(noResultsId);
+      if (!el) {
+        el = document.createElement("p");
+        el.id = noResultsId;
+        el.textContent = "No games found for this search.";
+        el.style.textAlign = "center";
+        el.style.marginTop = "20px";
+        el.style.fontWeight = "600";
+        el.style.color = "#444";
+        const grid = document.querySelector(".games-grid");
+        if (grid && grid.parentElement) {
+          grid.parentElement.appendChild(el);
+        }
+      }
+      return el;
+    }
+
+    function updateFilter() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const name = card.querySelector(".game-name")?.textContent.toLowerCase() || "";
+        const desc = card.querySelector(".game-desc")?.textContent.toLowerCase() || "";
+        const matches = !query || name.includes(query) || desc.includes(query);
+
+        card.style.display = matches ? "" : "none";
+        if (matches) visibleCount++;
+      });
+
+      const noResults = getOrCreateNoResultsElement();
+      noResults.style.display = visibleCount === 0 ? "block" : "none";
+    }
+
+    // Extra descriptive text for each game when user clicks its image/logo
+    const gameDetailsMap = {
+      "Go Karting":
+        "Go Karting is an exciting racing experience where players drive small, high-speed karts on a specially designed track. It gives the feeling of real car racing in a safe and controlled environment. Riders compete with friends to complete laps in the shortest time possible. The sharp turns and straight tracks make the game thrilling and competitive. Safety helmets and seat belts are provided to ensure protection. It is suitable for both beginners and experienced drivers. Go Karting is a perfect activity for friends, family, and team outings. Overall, it delivers an adrenaline-filled and unforgettable racing adventure..",
+      "Bowling":
+        "Bowling is a fun indoor game where players roll a heavy ball down a smooth lane to knock down pins placed at the end. The main goal is to knock down as many pins as possible in each turn. Players take turns and try to score the highest points. It requires focus, balance, and good aim to hit all the pins. The sound of the ball hitting the pins makes the game more exciting. Bowling can be played with friends, family, or even in teams. It is suitable for all age groups and skill levels. Overall, bowling is a relaxing and enjoyable game that brings people together for fun and friendly competition..",
+      "Laser Tag":
+        "Laser Tag is an exciting and action-filled game where players use laser guns to tag opponents in a dark, themed arena. Each player wears a special vest that registers hits from the laser. The main goal is to score points by tagging other players while avoiding being tagged. The arena usually has obstacles, lights, and music that make the experience more thrilling. Players can compete individually or in teams. The game improves teamwork, strategy, and quick thinking skills. It is safe because it uses harmless infrared light instead of real lasers. Overall, Laser Tag is a fun and energetic game perfect for friends, parties, and group events..",
+      "VR Games":
+        "A VR game is an immersive digital experience where players wear a virtual reality headset to enter a 3D virtual world. The headset and motion controllers allow players to see, move, and interact as if they are inside the game. It creates a realistic feeling through visuals, sound, and sometimes vibrations. Players can explore new worlds, fight enemies, solve puzzles, or enjoy simulations. VR games make you feel like you are part of the action, not just watching it on a screen. The experience is more engaging compared to normal video games. It is safe and designed for entertainment and learning. Overall, VR gaming offers a unique and exciting adventure that feels almost real.s.",
+      "Bull Ride":
+        "The Bull Ride game is a fun and exciting activity where players sit on a mechanical bull that moves in different directions to test their balance and strength. The main goal is to stay on the bull for as long as possible without falling. As the speed increases, the ride becomes more challenging and thrilling. It creates a competitive and energetic atmosphere as friends and family watch and cheer..",
+      "Snoker":
+        "Snooker is a popular indoor cue sport played on a large rectangular table covered with green cloth. Players use a cue stick to hit a white cue ball and pot colored balls into the pockets. The main goal is to score more points than the opponent by potting balls in the correct order. The game requires concentration, accuracy, and strategic thinking. Each colored ball has different points, which makes the game more interesting and challenging. Players must carefully plan their shots to control the position of the cue ball. Snooker is usually played between two players but can also be played in teams. Overall, snooker is a calm yet competitive game that tests skill and patience..",
+      "Paint Ball": 
+      "Paintball is an exciting outdoor game where players compete in teams to eliminate opponents by hitting them with paint-filled pellets shot from a paintball gun. The game is played in a large field with various obstacles and hiding spots. The main goal is to tag opponents while avoiding being tagged yourself. Players wear protective gear, including masks and vests, to ensure safety. Paintball promotes teamwork, strategy, and quick decision-making. It is a thrilling and energetic game that provides an adrenaline rush and lots of fun for players of all ages.",
+      "Archery":
+        "Archery is a skill-based sport where players use a bow to shoot arrows at a target. The main goal is to hit the center of the target to score maximum points. It requires focus, steady hands, and good body balance. Players must carefully aim and control their breathing before releasing the arrow. Archery can be played individually or in competitions against others. It improves concentration, patience, and coordination. Safety rules are followed to ensure that the game is secure for everyone. Overall, archery is a calm yet challenging activity that builds both mental and physical strength."
+    };
+
+    function showGameDetails(name) {
+      if (!detailsSection || !detailTitle || !detailText) return;
+      const info = gameDetailsMap[name] ||
+        "Detailed information about this game will be available soon.";
+
+      detailTitle.textContent = name + " — Game Details";
+      detailText.textContent = info;
+
+      detailsSection.style.display = "flex";
+    }
+
+    // When user clicks a game image/logo, show the description panel
+    cards.forEach(card => {
+      const nameEl = card.querySelector(".game-name");
+      const imgEl = card.querySelector(".game-img");
+      if (!nameEl || !imgEl) return;
+
+      const gameName = nameEl.textContent.trim();
+      imgEl.style.cursor = "pointer";
+      imgEl.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        showGameDetails(gameName);
+      });
+    });
+
+    // Close overlay on X button click
+    if (closeDetailsBtn && detailsSection) {
+      closeDetailsBtn.addEventListener("click", function () {
+        detailsSection.style.display = "none";
+      });
+
+      // Close when clicking on the dark background area
+      detailsSection.addEventListener("click", function (event) {
+        if (event.target === detailsSection) {
+          detailsSection.style.display = "none";
+        }
+      });
+    }
+
+    // Pre-fill from ?search= query param (from home page)
+    const params = new URLSearchParams(window.location.search);
+    const initialSearch = params.get("search") || "";
+    if (initialSearch) {
+      searchInput.value = initialSearch;
+      updateFilter();
+    } else {
+      // Ensure "no results" message is hidden when page first loads
+      const noResults = getOrCreateNoResultsElement();
+      noResults.style.display = "none";
+    }
+
+    // Filter as user types
+    searchInput.addEventListener("input", updateFilter);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GameZone | Home</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Inline styles only for the home search dropdown -->
+  <style>
+    .search-box {
+      position: relative;
+    }
+
+    .search-dropdown {
+      position: absolute;
+      top: 110%;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+      padding: 8px 0;
+      max-height: 260px;
+      overflow-y: auto;
+      z-index: 1200;
+      display: none;
+    }
+
+    .search-result-item {
+      padding: 10px 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .search-result-item:hover {
+      background: #f5f3ff;
+    }
+
+    .search-result-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .search-result-desc {
+      font-size: 12px;
+      color: #555;
+    }
+
+    .search-result-link {
+      font-size: 11px;
+      color: #7b0f7b;
+    }
+
+    .search-empty {
+      padding: 10px 16px;
+      font-size: 12px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== HEADER / NAVBAR ===== -->
+<header>
+  <nav class="navbar">
+    <div class="nav-left">
+    <div class="logo"><a class="brand" href="home.html">GameZone</a></div>
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="search"
+          name="search"
+          placeholder="Search games..."
+        >
+        <div id="search-dropdown" class="search-dropdown">
+          <div id="results-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="about.html">About us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main>
+
+  <!-- HERO SECTION (FULL-WIDTH WELCOME) -->
+  <section class="hero">
+    <div class="hero-left">
+      <h1>WELCOME TO FUNWAY GAMEZONE</h1>
+
+      <p>
+        Explore exciting games, book your slots easily, and enjoy
+        a seamless gaming experience with GameZone.
+      </p>
+
+      <a href="games.html" class="primary-btn">
+        Explore Games
+      </a>
+    </div>
+  </section>
+
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-section">
+      <h3>GameZone</h3>
+      <p>Fun, Games & Entertainment for everyone.</p>
+    </div>
+
+    <div class="footer-section quick-links-div">
+      <h4>Quick Links</h4>
+      <ul class="quick-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="book.html">Book</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <p>Funway Mysore</p>
+      <p>Email: info@gamezone.com</p>
+      <p>Phone: +91 98765 43210</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 GameZone. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+  // Powerful but simple search engine right on the home page
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search");
+    const dropdown = document.getElementById("search-dropdown");
+    const resultsList = document.getElementById("results-list");
+
+    if (!searchInput || !dropdown || !resultsList) return;
+
+    // Same games as the site, plus keywords so search feels like a real engine
+    const games = [
+      {
+        name: "Go Karting",
+        slug: "Go%20Karting",
+        description: "High-speed racing experience with friends and family.",
+        keywords: ["kart", "karting", "race", "racing", "track", "speed"]
+      },
+      {
+        name: "Bowling",
+        slug: "Bowling",
+        description: "Fun indoor bowling lanes for all age groups.",
+        keywords: ["bowling", "indoor", "family", "friends", "lanes"]
+      },
+      {
+        name: "Laser Tag",
+        slug: "Laser%20Tag",
+        description: "Action-packed laser combat in a dark arena.",
+        keywords: ["laser", "tag", "combat", "arena", "battle"]
+      },
+      {
+        name: "VR Games",
+        slug: "VR%20Games",
+        description: "Immersive virtual reality gaming experience.",
+        keywords: ["vr", "virtual reality", "headset", "simulation"]
+      },
+      {
+        name: "Zombie Escape",
+        slug: "Zombie%20Escape",
+        description: "Survive a thrilling zombie mission with your team.",
+        keywords: ["zombie", "escape", "horror", "mission"]
+      },
+      {
+        name: "Drift Racing",
+        slug: "Drift%20Racing",
+        description: "Professional drift-style racing on indoor tracks.",
+        keywords: ["drift", "racing", "cars", "speed"]
+      },
+      {
+        name: "Battle Arena",
+        slug: "Battle%20Arena",
+        description: "Competitive team battles using smart laser weapons.",
+        keywords: ["battle", "arena", "team", "fight", "laser"]
+      },
+      {
+        name: "VR Space Ride",
+        slug: "VR%20Space%20Ride",
+        description: "Experience space travel with motion-based VR seats.",
+        keywords: ["vr", "space", "ride", "galaxy", "motion"]
+      }
+    ];
+
+    function buildSearchIndexText(game) {
+      const text = [
+        game.name,
+        game.description || "",
+        ...(game.keywords || [])
+      ]
+        .join(" ")
+        .toLowerCase();
+      return text;
+    }
+
+    // A small scoring algorithm so better matches appear first
+    function searchGames(query) {
+      const q = query.trim().toLowerCase();
+      if (!q) return [];
+
+      const tokens = q.split(/\s+/).filter(Boolean);
+
+      const results = [];
+
+      for (const game of games) {
+        const indexText = buildSearchIndexText(game);
+        let score = 0;
+        let allTokensFound = true;
+
+        for (const token of tokens) {
+          if (!indexText.includes(token)) {
+            allTokensFound = false;
+            break;
+          }
+
+          const name = game.name.toLowerCase();
+
+          if (name === token) {
+            score += 6; // exact match on full name
+          } else if (name.startsWith(token)) {
+            score += 4; // name starts with token
+          } else if (name.includes(token)) {
+            score += 3; // name contains token
+          } else {
+            score += 1; // token is somewhere in description/keywords
+          }
+        }
+
+        if (!allTokensFound) continue;
+
+        results.push({ game, score });
+      }
+
+      // Order by highest score (best matches like "kart" -> "Go Karting" first)
+      results.sort((a, b) => b.score - a.score);
+      return results.map(r => r.game);
+    }
+
+    function renderResults(gamesFound) {
+      resultsList.innerHTML = "";
+
+      if (!gamesFound.length) {
+        dropdown.style.display = "block";
+        const empty = document.createElement("div");
+        empty.className = "search-empty";
+        empty.textContent = "No games found. Try a different keyword.";
+        resultsList.appendChild(empty);
+        return;
+      }
+
+      dropdown.style.display = "block";
+
+      gamesFound.forEach(game => {
+        const item = document.createElement("div");
+        item.className = "search-result-item";
+
+        item.innerHTML = `
+          <span class="search-result-title">${game.name}</span>
+          <span class="search-result-desc">${game.description}</span>
+          <span class="search-result-link">Book this game →</span>
+        `;
+
+        item.addEventListener("click", () => {
+          // Go to games page with this game pre-searched
+          window.location.href =
+            "games.html?search=" + encodeURIComponent(game.name);
+        });
+
+        resultsList.appendChild(item);
+      });
+    }
+
+    function handleSearchInput() {
+      const query = searchInput.value;
+      if (!query.trim()) {
+        dropdown.style.display = "none";
+        resultsList.innerHTML = "";
+        return;
+      }
+
+      const matches = searchGames(query);
+      renderResults(matches);
+    }
+
+    // Live search as user types
+    searchInput.addEventListener("input", handleSearchInput);
+
+    // On Enter, perform a search on the Games page (like a normal search engine)
+    searchInput.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        const query = (searchInput.value || "").trim();
+        if (!query) {
+          dropdown.style.display = "none";
+          resultsList.innerHTML = "";
+          return;
+        }
+
+        // Redirect to games page and let its own search filter handle results
+        window.location.href =
+          "games.html?search=" + encodeURIComponent(query);
+      }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", function (event) {
+      if (!dropdown.contains(event.target) && event.target !== searchInput) {
+        dropdown.style.display = "none";
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

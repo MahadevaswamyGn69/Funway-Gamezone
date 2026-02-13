@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GameZone | Admin</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Minimal styles for admin table layout -->
+  <style>
+    .admin-table-wrapper {
+      margin-top: 30px;
+      background: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      padding: 24px;
+      overflow-x: auto;
+    }
+
+    .admin-table-search {
+      margin-bottom: 16px;
+      width: 260px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .admin-table thead {
+      background: #f4f4ff;
+    }
+
+    .admin-table th,
+    .admin-table td {
+      padding: 10px 8px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      white-space: nowrap;
+    }
+
+    .admin-table th {
+      font-weight: 600;
+      color: #444;
+    }
+
+    .admin-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      background: rgba(123, 15, 123, 0.08);
+      color: #7b0f7b;
+    }
+
+    .admin-empty {
+      text-align: center;
+      padding: 20px 0;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== HEADER / NAVBAR ===== -->
+<header>
+  <nav class="navbar">
+    <div class="nav-left">
+      <div class="logo"><a class="brand" href="home.html">GameZone</a></div>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="about.html">About us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="admin.html" class="active">Admin</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main>
+  <section class="admin-container">
+    <h1 class="page-title">Admin Dashboard</h1>
+
+    <!-- TOP STATS -->
+    <div class="admin-stats">
+      <div class="stat-card">
+        <h3>Today Bookings</h3>
+        <div class="stat-number" id="todayCount">0</div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Today Sales</h3>
+        <div class="stat-number" id="todaySales">₹0</div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Total Bookings (since start)</h3>
+        <div class="stat-number" id="totalCount">0</div>
+      </div>
+
+      <div class="stat-card">
+        <h3>Last Booking ID</h3>
+        <div class="stat-number" id="lastBookingId">—</div>
+      </div>
+    </div>
+
+    <!-- BOOKINGS TABLE -->
+    <h2 class="page-title" style="font-size: 26px; margin-top: 40px; margin-bottom: 10px;">
+      All Bookings
+    </h2>
+
+    <div class="admin-table-wrapper">
+      <input
+        type="text"
+        id="bookingSearch"
+        class="admin-table-search"
+        placeholder="Search by name, game, phone..."
+      >
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Game</th>
+            <th>Players</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="bookingsBody">
+          <tr><td colspan="7" class="admin-empty">Loading bookings...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-section">
+      <h3>GameZone</h3>
+      <p>Fun, Games & Entertainment for everyone.</p>
+    </div>
+
+    <div class="footer-section quick-links-div">
+      <h4>Quick Links</h4>
+      <ul class="quick-links">
+        <li><a href="home.html">Home</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="book.html">Book</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <p>Funway Mysore</p>
+      <p>Email: info@gamezone.com</p>
+      <p>Phone: +91 98765 43210</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 GameZone. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async function () {
+    // Simple front-end guard: redirect to login if not authenticated
+    if (localStorage.getItem("adminLoggedIn") !== "true") {
+      window.location.href = "admin-login.html";
+      return;
+    }
+
+    const todayCountEl = document.getElementById("todayCount");
+    const todaySalesEl = document.getElementById("todaySales");
+    const totalCountEl = document.getElementById("totalCount");
+    const lastBookingIdEl = document.getElementById("lastBookingId");
+    const bookingsBody = document.getElementById("bookingsBody");
+    const bookingSearch = document.getElementById("bookingSearch");
+
+    let allBookings = [];
+
+    function renderTable(rows) {
+      if (!rows.length) {
+        bookingsBody.innerHTML =
+          '<tr><td colspan="7" class="admin-empty">No bookings yet.</td></tr>';
+        return;
+      }
+
+      bookingsBody.innerHTML = rows.map(b => `
+        <tr>
+          <td><span class="admin-badge">${b.id}</span></td>
+          <td>${b.name}</td>
+          <td>${b.game}</td>
+          <td>${b.players}</td>
+          <td>${b.date}</td>
+          <td>${b.time}</td>
+          <td>₹${b.total}</td>
+        </tr>
+      `).join("");
+    }
+
+    function applySearchFilter() {
+      const q = (bookingSearch.value || "").trim().toLowerCase();
+      if (!q) {
+        renderTable(allBookings);
+        return;
+      }
+
+      const filtered = allBookings.filter(b => {
+        return (
+          (b.name && b.name.toLowerCase().includes(q)) ||
+          (b.game && b.game.toLowerCase().includes(q)) ||
+          (b.phone && String(b.phone).toLowerCase().includes(q)) ||
+          (b.id && String(b.id).toLowerCase().includes(q))
+        );
+      });
+
+      renderTable(filtered);
+    }
+
+    bookingSearch.addEventListener("input", applySearchFilter);
+
+    try {
+      const [bookingsRes, todayRes] = await Promise.all([
+        fetch("http://localhost:5000/api/bookings"),
+        fetch("http://localhost:5000/api/bookings/today/sales")
+      ]);
+
+      allBookings = await bookingsRes.json();
+      const todayStats = await todayRes.json();
+
+      // Stats
+      totalCountEl.textContent = allBookings.length;
+      if (allBookings.length > 0) {
+        const last = allBookings[allBookings.length - 1];
+        lastBookingIdEl.textContent = last.id || "—";
+      } else {
+        lastBookingIdEl.textContent = "—";
+      }
+
+      todayCountEl.textContent = todayStats.count || 0;
+      todaySalesEl.textContent = "₹" + (todayStats.totalSales || 0);
+
+      // Table
+      renderTable(allBookings);
+    } catch (err) {
+      console.error(err);
+      bookingsBody.innerHTML =
+        '<tr><td colspan="7" class="admin-empty">Error loading bookings from server.</td></tr>';
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>GameZone | Book Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <div class="logo"><a class="brand" href="home.html">GameZone</a></div>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="about.html">About us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- BOOKING -->
+  <section class="booking-container">
+
+    <h1 class="page-title">Book Your Game</h1>
+
+    <!-- ALL STEPS IN ONE SCREEN -->
+    <div class="booking-grid">
+
+      <!-- STEP 1 -->
+      <div class="booking-card">
+        <h3>Select Date & Time</h3>
+
+        <input type="date" id="date">
+        <select id="time">
+          <option>02:00 PM - 04:00 PM</option>
+          <option>04:00 PM - 06:00 PM</option>
+          <option>06:00 PM - 08:00 PM</option>
+        </select>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="booking-card">
+        <h3>Customer Details</h3>
+
+        <input type="text" id="name" placeholder="Your Name" required>
+
+        <input type="email" id="email" placeholder="Your Email (Gmail)" required>
+
+        <input type="tel" id="phone" placeholder="Phone Number" pattern="[0-9]{10}" required>
+
+        <input type="number" id="players" placeholder="Players" max="2" required>
+      </div>
+
+
+      <!-- STEP 3 (HIDDEN UNTIL BOOKING IS CONFIRMED) -->
+      <div id="print-area" style="display: none;">
+        <div class="booking-card" id="confirmCard">
+          <h3>Booking Summary</h3>
+          <p><b>Name:</b> <span id="cName">---</span></p>
+          <p><b>Email:</b> <span id="cEmail">---</span></p>
+          <p><b>Phone:</b> <span id="cPhone">---</span></p>
+          <p><b>Date:</b> <span id="cDate">---</span></p>
+          <p><b>Time:</b> <span id="cTime">---</span></p>
+          <p><b>Game:</b> <span id="cGame">---</span></p>
+          <p><b>Players:</b> <span id="cPlayers">---</span></p>
+          <p><b>Subtotal:</b> <span id="subtotal">₹0</span></p>
+          <p><b>Tax:</b> <span id="tax">₹0</span></p>
+          <p><b>Total:</b> <span id="total">₹0</span></p>
+
+          <img id="qrCode" style="margin:15px auto;width:120px;display:block;">
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SINGLE BUTTON -->
+    <button type="button" class="next-btn" onclick="confirmBooking()">
+      Confirm Booking
+    </button>
+    <button class="next-btn" onclick="downloadSlip()">Download PDF</button>
+
+
+
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+
+      <div class="footer-section">
+        <h3>GameZone</h3>
+        <p>Fun, Games & Entertainment for everyone.</p>
+      </div>
+
+      <div class="footer-section quick-links-div">
+        <h4>Quick Links</h4>
+        <ul class="quick-links">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="games.html">Games</a></li>
+          <li><a href="book.html">Book</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>Funway Mysore</p>
+        <p>Email: info@gamezone.com</p>
+        <p>Phone: +91 98765 43210</p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 GameZone. All Rights Reserved.
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+    /* get selected game from URL */
+    const params = new URLSearchParams(window.location.search);
+    const selectedGame = params.get("game");
+
+    /* confirm booking */
+    async function confirmBooking() {
+
+      if (!selectedGame) {
+        alert("Please select a game first from Games page");
+        return;
+      }
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const players = document.getElementById("players").value;
+      const date = document.getElementById("date").value;
+      const time = document.getElementById("time").value;
+
+      if (!name || !email || !phone || !players || !date || !time) {
+        alert("Please fill all details");
+        return;
+      }
+
+      // Prevent selecting a past date on the client side
+      const todayStr = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+      if (date < todayStr) {
+        alert("Please select today or a future date.");
+        return;
+      }
+
+      const data = {
+        name,
+        email,
+        phone,
+        game: selectedGame,
+        players: Number(players),
+        date,
+        time
+      };
+
+
+      try {
+        const res = await fetch("http://localhost:5000/api/bookings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        const result = await res.json();
+
+        if (!res.ok) {
+          alert(result.message || "Booking failed");
+          return;
+        }
+
+        /* fill booking summary */
+        document.getElementById("cName").innerText = result.booking.name;
+        document.getElementById("cEmail").innerText = result.booking.email;
+        document.getElementById("cPhone").innerText = result.booking.phone;
+        document.getElementById("cDate").innerText = result.booking.date;
+        document.getElementById("cTime").innerText = result.booking.time;
+        document.getElementById("cGame").innerText = result.booking.game;
+        document.getElementById("cPlayers").innerText = result.booking.players;
+        document.getElementById("subtotal").innerText = "₹" + result.booking.subtotal;
+        document.getElementById("tax").innerText = "₹" + result.booking.tax;
+        document.getElementById("total").innerText = "₹" + result.booking.total;
+
+        // Show booking summary section only after successful booking
+        const printArea = document.getElementById("print-area");
+        printArea.style.display = "block";
+        printArea.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        /* generate QR code */
+        const qrData = `
+Booking ID: ${result.booking.id}
+Name: ${result.booking.name}
+Game: ${result.booking.game}
+Date: ${result.booking.date}
+Time: ${result.booking.time}
+Total: ₹${result.booking.total}
+    `;
+
+        const qrUrl =
+          "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" +
+          encodeURIComponent(qrData);
+
+        const qrImg = document.getElementById("qrCode");
+        qrImg.src = qrUrl;
+        qrImg.style.display = "block";
+
+        alert("Booking Successful ✅");
+
+      } catch (error) {
+        console.error(error);
+        alert("Server error");
+      }
+    }
+
+    /* download pdf */
+    function downloadSlip() {
+      window.print();
+    }
+  </script>
+
+
+</body>
+
+</html>
