@@ -18,9 +18,9 @@ app.get("/test", (req, res) => {
 // 👉 Serve frontend files
 app.use(express.static(path.join(__dirname, "../frontend")));
 
-// 👉 Default route
+// 👉 Default route - serve home page
 app.get("/", (req, res) => {
-  res.send("GameZone Backend Running 🚀");
+  res.sendFile(path.join(__dirname, "../frontend/home.html"));
 });
 
 const PORT = process.env.PORT || 5000;
